@@ -1,0 +1,27 @@
+.border-8-black{
+    border: 8px solid black;
+}
+
+.border-4-dotted{
+    border: 4px dotted black;
+}
+
+.bg-green{
+    background-color: green;
+}
+
+.font-60{
+    font-size: 60px;
+}
+.p-10{
+    padding: 10px;
+}
+.h-400{
+    height: 400px;
+}
+
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}

@@ -1,0 +1,77 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0
+}
+
+.flex{
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+}
+.wrap{
+    flex-wrap: wrap;
+}
+
+.bg-gray{
+    background-color: gray;
+}
+
+.px-20{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.py-8{
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.p-4{
+    padding: 4px;
+}
+
+.p-100{
+    padding: 100px;
+}
+
+.my-10{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.flex-col-center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.gap-10{
+    gap: 10px;
+}
+
+.gap-30{
+    gap: 30px;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.text-white{
+    color: white;
+}
+
+.w-250{
+    width: 250px;
+}
+
+/* .h-300{
+    height: 300px;
+} */
+
+.border{
+    border: 1px solid gray;
+}
+
