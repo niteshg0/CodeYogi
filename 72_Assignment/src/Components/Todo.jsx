@@ -67,7 +67,11 @@ const Todo = () => {
         <ul>
           {incompleteTodos && incompleteTodos.length > 0 ? (
             incompleteTodos.map((item) => (
-              <TodoList item={item} handleTodo={handleTodo} handleRemove={handleRemove} />
+              <TodoList
+                item={item}
+                handleTodo={handleTodo}
+                handleRemove={handleRemove}
+              />
             ))
           ) : (
             <p className=" p-4 text-lg text-gray-500 font-medium italic">
