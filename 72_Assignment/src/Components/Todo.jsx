@@ -1,15 +1,16 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Button from "./Button";
 import TodoList from "./TodoList";
 
 const Todo = () => {
-
   const savedTodos = JSON.parse(localStorage.getItem("my-todos")) || [];
 
   const [todos, setTodos] = useState(savedTodos);
 
   const [isAdding, setIsAdding] = useState(false);
   const [newTodo, setNewTodo] = useState("");
+
+  const ref = useRef(null);
 
   const handleTodo = useCallback((id) => {
     setTodos((prev) =>
@@ -35,11 +36,19 @@ const Todo = () => {
     setNewTodo("");
   };
 
- 
+  const handleRemove = useCallback((id) => {
+    setTodos((prev) => prev.filter((item) => item.id != id));
+  }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     localStorage.setItem("my-todos", JSON.stringify(todos));
-  }, [todos])
+  }, [todos]);
+
+  useEffect(() => {
+    if (isAdding && ref.current) {
+      ref.current.focus();
+    }
+  }, [isAdding]);
 
   const incompleteTodos = todos.filter((item) => !item.isCompleted);
 
@@ -49,7 +58,7 @@ const Todo = () => {
     <div className="w-full px-4  sm:px-30">
       <div className="flex flex-col md:flex-row justify-between gap-4 py-10">
         <h1 className="text-3xl font-bold">Things to get done</h1>
-        <Button disabled={true} >Refresh</Button>
+        <Button disabled={true}>Refresh</Button>
       </div>
 
       <div>
@@ -58,7 +67,7 @@ const Todo = () => {
         <ul>
           {incompleteTodos && incompleteTodos.length > 0 ? (
             incompleteTodos.map((item) => (
-              <TodoList item={item} handleTodo={handleTodo} />
+              <TodoList item={item} handleTodo={handleTodo} handleRemove={handleRemove} />
             ))
           ) : (
             <p className=" p-4 text-lg text-gray-500 font-medium italic">
@@ -86,6 +95,7 @@ const Todo = () => {
               className="md:w-180 bg-white p-2  rounded overflow-hidden border border-gray-400 focus:outline-yellow-500 md:text-lg font-medium"
               onChange={(e) => setNewTodo(e.target.value)}
               value={newTodo}
+              ref={ref}
             />
 
             <div className="flex gap-10">
@@ -113,7 +123,11 @@ const Todo = () => {
         <ul>
           {completedTodos && completedTodos.length > 0 ? (
             completedTodos.map((item) => (
-              <TodoList item={item} handleTodo={handleTodo} />
+              <TodoList
+                item={item}
+                handleTodo={handleTodo}
+                handleRemove={handleRemove}
+              />
             ))
           ) : (
             <p className=" p-4 text-lg text-gray-500 font-medium italic">
