@@ -111,7 +111,7 @@ const Todo = () => {
               </Button>
 
               <Button
-                className="!bg-white !text-black hover:!bg-gray-300"
+                className="bg-white! text-black! hover:bg-gray-300!"
                 onClick={() => setIsAdding(!isAdding)}
               >
                 Cancel
