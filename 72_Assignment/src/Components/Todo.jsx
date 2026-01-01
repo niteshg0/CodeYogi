@@ -1,25 +1,12 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Button from "./Button";
 import TodoList from "./TodoList";
 
 const Todo = () => {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      todo: "Learn React",
-      isCompleted: false,
-    },
-    {
-      id: 2,
-      todo: "Learn JavaScript",
-      isCompleted: false,
-    },
-    {
-      id: 3,
-      todo: "Learn CSS",
-      isCompleted: true,
-    },
-  ]);
+
+  const savedTodos = JSON.parse(localStorage.getItem("my-todos")) || [];
+
+  const [todos, setTodos] = useState(savedTodos);
 
   const [isAdding, setIsAdding] = useState(false);
   const [newTodo, setNewTodo] = useState("");
@@ -48,17 +35,11 @@ const Todo = () => {
     setNewTodo("");
   };
 
-  const handleRefresh = () => {
-    const refreshedTodos = [
-      ...todos,
-      {
-        id: Math.random(),
-        todo: "Todo created by another user",
-        isCompleted: true,
-      },
-    ];
-    setTodos(refreshedTodos);
-  };
+ 
+
+  useEffect(()=>{
+    localStorage.setItem("my-todos", JSON.stringify(todos));
+  }, [todos])
 
   const incompleteTodos = todos.filter((item) => !item.isCompleted);
 
@@ -68,7 +49,7 @@ const Todo = () => {
     <div className="w-full px-4  sm:px-30">
       <div className="flex flex-col md:flex-row justify-between gap-4 py-10">
         <h1 className="text-3xl font-bold">Things to get done</h1>
-        <Button onClick={handleRefresh}>Refresh</Button>
+        <Button disabled={true} >Refresh</Button>
       </div>
 
       <div>
